@@ -160,8 +160,3 @@ sendMessageBtn.addEventListener("click",(e)=> handleOutgoingMessage(e));
 document.querySelector("#file-upload").addEventListener("click",()=> fileInput.click());
 chatbotToggler.addEventListener("click",()=> document.body.classList.toggle("show-chatbot"));
 closeChatbot.addEventListener("click",()=> document.body.classList.remove("show-chatbot"));
-//goodbye
-//see you next time
-//nice to meet you
-//thank you for your time
-//thank you for your help
