@@ -1,0 +1,7 @@
+things we need for animation:
+1)smooth scrolling from locomotive js
+       * attach loco scroll css , from locomotive js-github
+       *attach locomotive scroll min js from "locomotivejs cdn"
+       *a section of code from smooth section under the javascript from github
+2)gsap
+3)scrolltriger

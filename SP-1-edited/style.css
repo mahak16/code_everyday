@@ -1,0 +1,99 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background: url(img-1.webp) no-repeat center center/cover; 
+}
+
+
+.container {
+    width: 550px;
+    height: 450px;
+}
+
+
+.header {
+    font-size: 1.2rem;
+    border: solid 2px #fff;
+    color: #fff;
+    background-color: #262626;
+    padding: 5px;
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+
+
+.main-container {
+    width: 100%;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px 40px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.main-container .random-text-area, 
+.main-container .text-area {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+
+.main-container .random-person, 
+.main-container .person {
+    font-size: 1.6rem;
+    color: red;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+
+.button-area button {
+    background-color: #262626;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-area button:active {
+    background-color: lightgrey;
+}
+
+
+.card-list {
+    margin-top: 20px;
+}
+
+.card {
+    border: 1px solid #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px black;
+}
+
+.card .quote {
+    font-size: 1.5rem;
+    
+}
+
+.card .person {
+    font-size: 1.5rem;
+}

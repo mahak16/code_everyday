@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>ROI CALCULATOR</h1>
+        <p>See the Impact of Return Prime on your business</p>
+        <div class="calculator">
+            <div class="inputs">
+                <h3>tell us about your Returns</h3>
+                <div class="input-group">
+                    <label>Annual Orders(total)</label>
+                    <input type="range" min="0" max="5000000" value="25000" id="annual-orders-slider">
+                    <input type="number" id="annual-orders" value="25000" class = "number-input">
+                 </div>
+
+                 <div class="input-group">
+                    <label>Average Order Value ($)</label>
+                    <input type="range" min="0" max="1000" value="100" id="aov-slider">
+                    <input type="number" id="aov" value="100" class = "number-input">
+                  </div>
+
+                  <div class="input-group">
+                    <label>Return rate (%)</label>
+                    <input type="range" min="0" max="50" value="10" id="return-rate-slider">
+                    <input type="number" id="return-rate" value="10" class = "number-input">
+                  </div>
+
+                  <div class="input-group">
+                    <label>Time spent per return request (hours)</label>
+                    <input type="range" min="0" max="12" value="1" id="time-per-return-slider">
+                    <input type="number" id="time-per-return" value="1" class = "number-input">
+                  </div>
+
+                  <div class="input-group">
+                    <label>Hourly wage per customer service staff member ($)</label>
+                    <input type="range" min="0" max="30" value="17" id="hourly-wage-slider">
+                    <input type="number" id="hourly-wage" value="17" class = "number-input">
+                  </div>
+
+            </div>
+            <div class="results">
+                <div class="estimated-roi">
+                    <p>Your Estimated ROI ($) per year</p>
+                    <h2 id="total-profit">$109,463</h2>
+                </div>
+                <div class="result-part">
+                    <h2>Revenue Back in your pocket</h2>
+                    <span id="revenue-back">$46,800</span>
+                </div>
+
+                <div class="result-part">
+                    <h2> Upshell Revenue</h2>
+                    <span id="upsell-revenue">$25,475</span>
+                </div>
+
+                <div class="result-part">
+                    <h2>Man power cost savings</h2>
+                    <span id="manpower-savings">$37,188</span>
+                </div>
+                <button class="btn">Download Report </button>
+            </div>
+        </div>
+    </div>
+    <div class="conatiner"></div>
+    <script src="script.js"></script>
+</body>
+</html>
