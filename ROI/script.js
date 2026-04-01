@@ -1,83 +1,113 @@
-//inputs
-const slider = document.getElementsByClassName("slider");
-const annualOrdersI = document.getElementById("annual-orders");
-const averageOrderValueI = document.getElementById("aov");
-const returnRateI = document.getElementById("return-rate");
-const timePerReturnI = document.getElementById("time-per-return");
-const hourlyWageI = document.getElementById("hourly-wage");
+// ================= INPUT ELEMENTS =================
+const annualOrdersInput = document.getElementById("annual-orders");
+const averageOrderValueInput = document.getElementById("aov");
+const returnRateInput = document.getElementById("return-rate");
+const timePerReturnInput = document.getElementById("time-per-return");
+const hourlyWageInput = document.getElementById("hourly-wage");
 
-//sliders
-const annualOrdersS = document.getElementById("annual-orders-slider")
-const averageOrderValueS = document.getElementById("aov-slider");
-const returnRateS = document.getElementById("return-rates-slider");
-const timePerReturnS = document.getElementById("time-per-return-slider");
-const hourlyWageS = document.getElementById("hourly-wages-slider")
+// ================= SLIDER ELEMENTS =================
+const annualOrdersSlider = document.getElementById("annual-orders-slider");
+const averageOrderValueSlider = document.getElementById("aov-slider");
+const returnRateSlider = document.getElementById("return-rates-slider");
+const timePerReturnSlider = document.getElementById("time-per-return-slider");
+const hourlyWageSlider = document.getElementById("hourly-wages-slider");
 
+// ================= OUTPUT ELEMENTS =================
+const totalProfitOutput = document.getElementById("total-profit");
+const revenueBackOutput = document.getElementById("revenue-back");
+const upsellRevenueOutput = document.getElementById("upsell-revenue");
+const manPowerSavingsOutput = document.getElementById("manpower-savings");
 
-annualOrdersS.addEventListener("input",function(){
-    
-    const value = annualOrdersS.value;
-    annualOrdersI.value = value;
+// ================= CONSTANTS =================
+const EXCHANGE_RATE = 0.6;
+const UPSELL_RATE = 0.15;
+const PROCESSING_TIME_MINUTES = 8.5;
+const PROCESSING_TIME_HOURS = PROCESSING_TIME_MINUTES / 60;
 
-    console.log(value);
+const LOW_RETURN_ORDER_THRESHOLD = 450;
+const HIGH_COST_MULTIPLIER = 3;
+const LOW_COST_MULTIPLIER = 2.5;
 
- }) ;
-annualOrdersS.oninput = function(){
-    const value = annualOrdersS.value;
-    annualOrdersI.value = value;
-}
-//output
-
-const totalProfitO = document.getElementById("total-profit");
-const revenueBackO = document.getElementById("revenue-back");
-const upsellRevenueO = document.getElementById("upsell-revenue");
-const manPowerSavingsO = document.getElementById("manpower-savings");
-
-//making constants
-
-const Exchange_Rate = 0.6;
-const Upsell_Rate = 0.15;
-const ADDITIONAL_CUSTOMERS_RATE = 0.3;
-const Processing_Time_Per_Return = 8.5/60;
-const Low_Return_Order_Threshold = 450;
-const High_Cost_Multiplier = 3;
-const Low_Cost_Multiplier = 2.5;
-
-function CalculateProfit(){
-    const annualOrders = parseFloat(annualOrdersI.value);
-    const averageOrderValue = parseFloat(averageOrderValueI.value);
-    const returnRate = parseFloat(returnRateI.value) / 100;
-    const timePerReturn = parseFloat(timePerReturnI.value);
-    const hourlyWage = parseFloat(hourlyWageI.value);
-
-    const returnOrders = annualOrders * returnRate;
-
-    const retainedProfit = returnOrders * Exchange_Rate * averageOrderValue;
-    revenueBackO.textContent = `$${retainedProfit.toFixed(2)}`;
-    
-    const upsellRevenue = annualOrders * Upsell_Rate * averageOrderValue;
-    upsellRevenueO.textContent = `$${upsellRevenue.toFixed(2)}`;
-
-    const manpowerSavings = returnOrders * Processing_Time_Per_Return * hourlyWage*timePerReturn;
-    manPowerSavingsO.textContent = `$${manpowerSavings.toFixed(2)}`;
-
-    const totalProfit = retainedProfit + upsellRevenue + manpowerSavings; //numerator
-    
-    const investmentCost = returnOrders < Low_Return_Order_Threshold
-    ? returnOrders * High_Cost_Multiplier : returnOrders * Low_Cost_Multiplier; // denominator
-
-  
-  const totalROI = (totalProfit / investmentCost) * 100;
-  totalProfitO.textContent = `$${totalROI.toFixed(2)}`;
+// ================= UTILITY FUNCTIONS =================
+function safeParse(value) {
+    const num = parseFloat(value);
+    return isNaN(num) ? 0 : num;
 }
 
+function formatCurrency(value) {
+    return `$${value.toFixed(2)}`;
+}
 
+// ================= CALCULATION FUNCTIONS =================
+function calculateReturnOrders(annualOrders, returnRate) {
+    return annualOrders * returnRate;
+}
 
+function calculateRetainedProfit(returnOrders, averageOrderValue) {
+    return returnOrders * EXCHANGE_RATE * averageOrderValue;
+}
 
-annualOrdersI.addEventListener("input", CalculateProfit);
-averageOrderValueI.addEventListener("input", CalculateProfit);
-returnRateI.addEventListener("input", CalculateProfit);
-timePerReturnI.addEventListener("input", CalculateProfit);
-hourlyWageI.addEventListener("input", CalculateProfit);
+function calculateUpsellRevenue(annualOrders, averageOrderValue) {
+    return annualOrders * UPSELL_RATE * averageOrderValue;
+}
 
-CalculateProfit();
+function calculateManpowerSavings(returnOrders, hourlyWage, timePerReturn) {
+    return returnOrders * PROCESSING_TIME_HOURS * hourlyWage * timePerReturn;
+}
+
+function calculateInvestmentCost(returnOrders) {
+    if (returnOrders < LOW_RETURN_ORDER_THRESHOLD) {
+        return returnOrders * HIGH_COST_MULTIPLIER;
+    } else {
+        return returnOrders * LOW_COST_MULTIPLIER;
+    }
+}
+
+// ================= MAIN FUNCTION =================
+function calculateProfit() {
+    const annualOrders = safeParse(annualOrdersInput.value);
+    const averageOrderValue = safeParse(averageOrderValueInput.value);
+    const returnRate = safeParse(returnRateInput.value) / 100;
+    const timePerReturn = safeParse(timePerReturnInput.value);
+    const hourlyWage = safeParse(hourlyWageInput.value);
+
+    const returnOrders = calculateReturnOrders(annualOrders, returnRate);
+
+    const retainedProfit = calculateRetainedProfit(returnOrders, averageOrderValue);
+    const upsellRevenue = calculateUpsellRevenue(annualOrders, averageOrderValue);
+    const manpowerSavings = calculateManpowerSavings(returnOrders, hourlyWage, timePerReturn);
+
+    const totalProfit = retainedProfit + upsellRevenue + manpowerSavings;
+    const investmentCost = calculateInvestmentCost(returnOrders);
+
+    const totalROI = investmentCost === 0 ? 0 : (totalProfit / investmentCost) * 100;
+
+    // Update UI
+    revenueBackOutput.textContent = formatCurrency(retainedProfit);
+    upsellRevenueOutput.textContent = formatCurrency(upsellRevenue);
+    manPowerSavingsOutput.textContent = formatCurrency(manpowerSavings);
+    totalProfitOutput.textContent = `${totalROI.toFixed(2)}%`;
+}
+
+// ================= SYNC FUNCTION =================
+function syncSlider(slider, input) {
+    slider.addEventListener("input", () => {
+        input.value = slider.value;
+        calculateProfit();
+    });
+
+    input.addEventListener("input", () => {
+        slider.value = input.value;
+        calculateProfit();
+    });
+}
+
+// ================= INITIALIZE =================
+syncSlider(annualOrdersSlider, annualOrdersInput);
+syncSlider(averageOrderValueSlider, averageOrderValueInput);
+syncSlider(returnRateSlider, returnRateInput);
+syncSlider(timePerReturnSlider, timePerReturnInput);
+syncSlider(hourlyWageSlider, hourlyWageInput);
+
+// Initial calculation
+calculateProfit();
